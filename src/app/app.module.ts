@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { SimulatorComponent } from './simulator/simulator.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { GetStartedComponent } from './get-started/get-started.component';
 import { AppRoutingModule } from './AppRoutingModule';
 import { RouterModule } from '@angular/router';
@@ -13,7 +13,8 @@ import { ResultComponent } from './result/result.component';
     AppComponent,
     SimulatorComponent,
     GetStartedComponent,
-    ResultComponent
+    ResultComponent,
+    
   ],
   imports: [
     BrowserModule,
