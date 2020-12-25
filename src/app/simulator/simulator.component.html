@@ -178,11 +178,60 @@
                             </div>
                         </div>
                     </div>
+
+
+                    <div class="col-md-2">
+                        <div class="card border-0">
+                            <div class="card-body">
+                                <h2><strong>Details :</strong>Charge fgfg</h2>
+                                <div class="form-row">
+                                    <div class="col-md-12 mb-3">
+                                        <label for="validationTooltip01">Charge Fix</label>
+                                        <input type="text" formControlName="charegFix" id="charegFix"
+                                            class="form-control">
+                                        <div *ngIf="f.charegFix.touched && f.charegFix.invalid"
+                                            class=" alert alert-danger">
+                                            <div *ngIf="f.charegFix.errors.required">Charge Fix is required.</div>
+                                            <div *ngIf="f.charegFix.errors.pattern">Enter only number.</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="col-md-12 mb-3">
+                                        <label for="validationTooltip02">Sales</label>
+                                        <input type="text" formControlName="salesPrice" class="form-control"
+                                            id="salesPrice">
+                                        <div *ngIf="f.salesPrice.touched && f.salesPrice.invalid"
+                                            class=" alert alert-danger">
+                                            <div *ngIf="f.salesPrice.errors.required">Sale price is required.</div>
+                                            <div *ngIf="f.salesPrice.errors.pattern">Enter only number.</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col-md-12 mb-3">
+                                        <br> <button type="submit" di
+                                            class="btn btn-primary btn-lg btn-block">GO</button>
+
+                                    </div>
+                                </div>
+
+
+
+
+
+
+
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
 
             </div>
 
-            <div class="col mb-12">
+            <!-- <div class="col mb-12">
                 <div class="card border-0">
                     <div class="card-body">
                         <div class="form-row">
@@ -212,7 +261,7 @@
                 </div>
 
 
-            </div>
+            </div> -->
         </form>
         <hr>
         <div class="col-md-12 bg-transparent" [hidden]="!isShown">

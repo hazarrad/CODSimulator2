@@ -11,7 +11,7 @@ export class SimulatorComponent implements OnInit {
   leadBudget: number = 0;
   conversionCost: number = 0;
   conversionBudget: number = 0;
-  isShown:boolean=false;
+  isShown: boolean = false;
 
   /********************Lead *************************** */
   //  for Delivered
@@ -66,9 +66,9 @@ export class SimulatorComponent implements OnInit {
 
 
 
-    
-    
-    
+
+
+
   });
 
   constructor() { }
@@ -82,7 +82,7 @@ export class SimulatorComponent implements OnInit {
   submit() {
     if (this.form.status === 'VALID') {
 
-      this.isShown=true;
+      this.isShown = true;
       this.Conf50Delivery();
       this.Conf30Delivery();
       this.ConvConf50Delivery();
@@ -92,8 +92,14 @@ export class SimulatorComponent implements OnInit {
 
   Conf50Delivery() {
     this.Conf50Input = 0.5 * this.form.value.leadBudgetForm / this.form.value.leadCostform;
-    // if (this.Conf50Input || this.Conf30Input === undefined || 'NaN') { this.Conf50Input = 0 }
 
+    if ((this.Conf50Input == undefined || 'NaN') || (this.Conf50CP50Output == undefined || 'NaN') || (this.Conf50Dev30Output== undefined || 'NaN') || (this.Conf50Dev50Profit== undefined || 'NaN') || (this.Conf50Dev30Profit == undefined || 'NaN')) {
+      this.Conf50Input = 0;
+      this.Conf50CP50Output = 0;
+      this.Conf50Dev30Output = 0;
+      this.Conf50Dev50Profit = 0;
+      this.Conf50Dev30Profit = 0;
+    }
     //  for Delivered
     this.Conf50Dev50Output = 0.5 * this.Conf50Input;
     this.Conf50Dev30Output = 0.3 * this.Conf50Input;
@@ -103,8 +109,18 @@ export class SimulatorComponent implements OnInit {
     this.Conf50CP30Output = this.form.value.leadBudgetForm / (0.3 * this.Conf50Input);
 
     // Profit for Confirmation 50 
-    this.Conf50Dev50Profit = (this.form.value.salesPrice * this.Conf50Dev50Output - (this.form.value.charegFix * this.Conf50Dev50Output) - (this.Conf50Dev50Output * this.Conf50CP50Output )) ;
-    this.Conf50Dev30Profit = (this.form.value.salesPrice * this.Conf50Dev30Output - (this.form.value.charegFix * this.Conf50Dev30Output) - (this.Conf50Dev30Output * this.Conf50CP30Output ));
+    this.Conf50Dev50Profit = (this.form.value.salesPrice * this.Conf50Dev50Output - (this.form.value.charegFix * this.Conf50Dev50Output) - (this.Conf50Dev50Output * this.Conf50CP50Output));
+    this.Conf50Dev30Profit = (this.form.value.salesPrice * this.Conf50Dev30Output - (this.form.value.charegFix * this.Conf50Dev30Output) - (this.Conf50Dev30Output * this.Conf50CP30Output));
+
+    if ((this.Conf50Input == undefined || 'NaN') || (this.Conf50CP50Output == undefined || 'NaN') || (this.Conf50Dev30Output== undefined || 'NaN') || (this.Conf50Dev50Profit== undefined || 'NaN') || (this.Conf50Dev30Profit == undefined || 'NaN')) {
+      this.Conf50Input = 0;
+      this.Conf50CP50Output = 0;
+      this.Conf50Dev30Output = 0;
+      this.Conf50Dev50Profit = 0;
+      this.Conf50Dev30Profit = 0;
+    }
+
+
   }
 
   Conf30Delivery() {
@@ -119,8 +135,8 @@ export class SimulatorComponent implements OnInit {
     this.Conf30CP30Output = this.form.value.leadBudgetForm / (0.3 * this.Conf30Input)
 
     // Profit for Confirmation 50 
-    this.Conf30Dev50Profit = (this.form.value.salesPrice * this.Conf30Dev50Output - (this.form.value.charegFix * this.Conf30Dev50Output) - (this.Conf30Dev50Output * this.Conf30CP50Output ));
-    this.Conf30Dev30Profit = (this.form.value.salesPrice * this.Conf30Dev30Output - (this.form.value.charegFix * this.Conf30Dev30Output) - (this.Conf30Dev30Output * this.Conf30CP30Output ));
+    this.Conf30Dev50Profit = (this.form.value.salesPrice * this.Conf30Dev50Output - (this.form.value.charegFix * this.Conf30Dev50Output) - (this.Conf30Dev50Output * this.Conf30CP50Output));
+    this.Conf30Dev30Profit = (this.form.value.salesPrice * this.Conf30Dev30Output - (this.form.value.charegFix * this.Conf30Dev30Output) - (this.Conf30Dev30Output * this.Conf30CP30Output));
   }
 
   ConvConf50Delivery() {
@@ -136,8 +152,8 @@ export class SimulatorComponent implements OnInit {
     this.ConvConf50CP30Output = this.form.value.conversionBudgetform / (0.3 * this.ConvConf50Input);
 
     // Profit for Confirmation 50 
-    this.ConvConf50Dev50Profit = (this.form.value.salesPrice * this.ConvConf50Dev50Output - (this.form.value.charegFix * this.ConvConf50Dev50Output) - (this.ConvConf50Dev50Output * this.ConvConf50CP50Output )) ;
-    this.ConvConf50Dev30Profit = (this.form.value.salesPrice * this.ConvConf50Dev30Output - (this.form.value.charegFix * this.ConvConf50Dev30Output) - (this.ConvConf50Dev30Output * this.ConvConf50CP30Output ));
+    this.ConvConf50Dev50Profit = (this.form.value.salesPrice * this.ConvConf50Dev50Output - (this.form.value.charegFix * this.ConvConf50Dev50Output) - (this.ConvConf50Dev50Output * this.ConvConf50CP50Output));
+    this.ConvConf50Dev30Profit = (this.form.value.salesPrice * this.ConvConf50Dev30Output - (this.form.value.charegFix * this.ConvConf50Dev30Output) - (this.ConvConf50Dev30Output * this.ConvConf50CP30Output));
   }
 
   ConvConf30Delivery() {
@@ -152,13 +168,13 @@ export class SimulatorComponent implements OnInit {
     this.ConvConf30CP30Output = this.form.value.conversionBudgetform / (0.3 * this.ConvConf30Input)
 
     // Profit for Confirmation 50 
-    this.ConvConf30Dev50Profit = (this.form.value.salesPrice * this.ConvConf30Dev50Output - (this.form.value.charegFix * this.ConvConf30Dev50Output) - (this.ConvConf30Dev50Output * this.ConvConf30CP50Output ));
-    this.ConvConf30Dev30Profit = (this.form.value.salesPrice * this.ConvConf30Dev30Output - (this.form.value.charegFix * this.ConvConf30Dev30Output) - (this.ConvConf30Dev30Output * this.ConvConf30CP30Output ));
+    this.ConvConf30Dev50Profit = (this.form.value.salesPrice * this.ConvConf30Dev50Output - (this.form.value.charegFix * this.ConvConf30Dev50Output) - (this.ConvConf30Dev50Output * this.ConvConf30CP50Output));
+    this.ConvConf30Dev30Profit = (this.form.value.salesPrice * this.ConvConf30Dev30Output - (this.form.value.charegFix * this.ConvConf30Dev30Output) - (this.ConvConf30Dev30Output * this.ConvConf30CP30Output));
   }
 
   setValue() {
 
-    this.form.setValue({ charegFix: 0, salesPrice: 0, leadCostform: 0, leadBudgetForm: 0 ,conversionCostform:0,conversionBudgetform:0});
+    this.form.setValue({ charegFix: 0, salesPrice: 0, leadCostform: 0, leadBudgetForm: 0, conversionCostform: 0, conversionBudgetform: 0 });
   }
 
 
