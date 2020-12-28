@@ -1,5 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-simulator',
   templateUrl: './simulator.component.html',
@@ -55,6 +56,22 @@ export class SimulatorComponent implements OnInit {
   ConvConf30Dev50Profit: number = 0;
   ConvConf30Dev30Profit: number = 0;
 
+  @ViewChild('scrollMe',{static:false}) private myScrollContainer: ElementRef;
+
+
+
+  scrollToBottom(): void {
+      try {
+          // this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
+    
+      
+      this.myScrollContainer.nativeElement.scroll({
+        top: this.myScrollContainer.nativeElement.scrollHeight,
+        left: 0,
+        behavior: 'smooth'
+      });
+    } catch(err) { }
+  }
 
   form = new FormGroup({
     charegFix: new FormControl('', [Validators.required, Validators.pattern("^[0-9\.]*$")]),
@@ -74,6 +91,7 @@ export class SimulatorComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+
     this.setValue()
   }
   get f() {
@@ -87,19 +105,23 @@ export class SimulatorComponent implements OnInit {
       this.Conf30Delivery();
       this.ConvConf50Delivery();
       this.ConvConf30Delivery();
+      this.sweetSuccess();
+
     }
+
+    
   }
 
   Conf50Delivery() {
     this.Conf50Input = 0.5 * this.form.value.leadBudgetForm / this.form.value.leadCostform;
 
-    if ((this.Conf50Input == undefined || 'NaN') || (this.Conf50CP50Output == undefined || 'NaN') || (this.Conf50Dev30Output== undefined || 'NaN') || (this.Conf50Dev50Profit== undefined || 'NaN') || (this.Conf50Dev30Profit == undefined || 'NaN')) {
-      this.Conf50Input = 0;
-      this.Conf50CP50Output = 0;
-      this.Conf50Dev30Output = 0;
-      this.Conf50Dev50Profit = 0;
-      this.Conf50Dev30Profit = 0;
-    }
+    // if ((this.Conf50Input == undefined || 'NaN') || (this.Conf50CP50Output == undefined || 'NaN') || (this.Conf50Dev30Output== undefined || 'NaN') || (this.Conf50Dev50Profit== undefined || 'NaN') || (this.Conf50Dev30Profit == undefined || 'NaN')) {
+    //   this.Conf50Input = 0;
+    //   this.Conf50CP50Output = 0;
+    //   this.Conf50Dev30Output = 0;
+    //   this.Conf50Dev50Profit = 0;
+    //   this.Conf50Dev30Profit = 0;
+    // }
     //  for Delivered
     this.Conf50Dev50Output = 0.5 * this.Conf50Input;
     this.Conf50Dev30Output = 0.3 * this.Conf50Input;
@@ -112,13 +134,13 @@ export class SimulatorComponent implements OnInit {
     this.Conf50Dev50Profit = (this.form.value.salesPrice * this.Conf50Dev50Output - (this.form.value.charegFix * this.Conf50Dev50Output) - (this.Conf50Dev50Output * this.Conf50CP50Output));
     this.Conf50Dev30Profit = (this.form.value.salesPrice * this.Conf50Dev30Output - (this.form.value.charegFix * this.Conf50Dev30Output) - (this.Conf50Dev30Output * this.Conf50CP30Output));
 
-    if ((this.Conf50Input == undefined || 'NaN') || (this.Conf50CP50Output == undefined || 'NaN') || (this.Conf50Dev30Output== undefined || 'NaN') || (this.Conf50Dev50Profit== undefined || 'NaN') || (this.Conf50Dev30Profit == undefined || 'NaN')) {
-      this.Conf50Input = 0;
-      this.Conf50CP50Output = 0;
-      this.Conf50Dev30Output = 0;
-      this.Conf50Dev50Profit = 0;
-      this.Conf50Dev30Profit = 0;
-    }
+    // if ((this.Conf50Input == undefined || 'NaN') || (this.Conf50CP50Output == undefined || 'NaN') || (this.Conf50Dev30Output== undefined || 'NaN') || (this.Conf50Dev50Profit== undefined || 'NaN') || (this.Conf50Dev30Profit == undefined || 'NaN')) {
+    //   this.Conf50Input = 0;
+    //   this.Conf50CP50Output = 0;
+    //   this.Conf50Dev30Output = 0;
+    //   this.Conf50Dev50Profit = 0;
+    //   this.Conf50Dev30Profit = 0;
+    // }
 
 
   }
@@ -177,6 +199,43 @@ export class SimulatorComponent implements OnInit {
     this.form.setValue({ charegFix: 0, salesPrice: 0, leadCostform: 0, leadBudgetForm: 0, conversionCostform: 0, conversionBudgetform: 0 });
   }
 
+  goToBottom(){
+    window.scrollTo(5,document.body.scrollHeight);
+  }
+  sweetSuccess() {
+    let timerInterval
+    Swal.fire({
+      title: 'Auto close alert!',
+      html: 'I will close in <b></b> milliseconds.',
+      timer: 500,
+      timerProgressBar: true,
+      didOpen: () => {
+        Swal.showLoading()
+        timerInterval = setInterval(() => {
+          const content = Swal.getContent()
+         
+        }, 100)
+      },
+      willClose: () => {
+        clearInterval(timerInterval)
+      }
+    }).then((result) => {
+      /* Read more about handling dismissals below */
+      if (result.dismiss === Swal.DismissReason.timer) {
+        console.log('I was closed by the timer')
+      }
+      Swal.fire({
+        icon: 'success',
+        title: 'Your work has been saved',
+        showConfirmButton: false,
+        timer: 1000
+      }).then((result) =>{
+        if(this.isShown===true){
+          this.scrollToBottom()
+        }
+      })
+    })
+  }
 
 
 }
