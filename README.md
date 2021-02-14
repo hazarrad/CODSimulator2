@@ -1,3 +1,10 @@
+# Analyze ADS Performance
+
+Are your campaigns ads working for you? Wondering which metrics you should be tracking?
+
+We are Provide you the way to analyze and assess the performance of your ad campaigns, When you’re running social media ad campaigns, it’s interesting to see how much can you be reach and earning before spending your money. The importance of these metrics varies depending on your campaign type and goals. Here in our service we are provide you two kind of senario throught the lead and conversion, In a nutshell, Track the Numbers cost of your campaign, then make the scenario which will become much profit to you. 
+
+
 # Simulator
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.0.
